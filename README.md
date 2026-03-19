@@ -22,8 +22,7 @@
 - **Live App:** _(Add deployed link here)_
 
 > A full React CRUD application giving fans an all-in-one view of the 2026 Formula 1 season.
-
-The F1 Grid Dashboard combines live standings, race schedules, favourite drivers, and a Dream Team builder into a single, interactive interface. Built with React and JavaScript, it turns complex F1 data into a clear and engaging user experience.
+> The F1 Grid Dashboard combines live standings, race schedules, favourite drivers, and a Dream Team builder into a single, interactive interface. Built with React and JavaScript, it turns complex F1 data into a clear and engaging user experience.
 
 > _(Add screenshot here)_
 
