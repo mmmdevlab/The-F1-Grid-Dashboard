@@ -18,17 +18,17 @@
 
 ---
 
-# The F1 Grid Dashboard - this section is ok no change required
+# The F1 Grid Dashboard
 
-- **Live App:** _(Add deployed link here)_
+**Live App:** _(Add deployed link here)_
 
 > A full React CRUD application giving fans an all-in-one view of the 2026 Formula 1 season.
 
 The F1 Grid Dashboard combines race standings, schedules, favourite drivers, and a Dream Team builder into a single, interactive interface. Built with React and JavaScript, it turns complex F1 data into a clear and engaging user experience.
 
-![alt text][logo]
+![The F1 Grid Logo][logo]
 
-[logo]: (update link here) "The F1 Grid Logo"
+[logo]: Planning/F1-Grid-Logo.svg
 
 ---
 
@@ -38,7 +38,7 @@ The project followed a structured, product-driven workflow to ensure clarity in 
 
 - **Initial Brainstorm**  
   Ideated and defined multiple project directions based on available APIs and feasibility.
-  _(Add ideation.md link here)_
+  [Read ideation Doc](./Planning/UserStories.md)
 
 - **MVP Definition**  
   Scoped features to balance technical requirements with a complete user experience:
@@ -53,50 +53,27 @@ The project followed a structured, product-driven workflow to ensure clarity in 
 
 - **User Stories**  
   Translated product goals into actionable user flows.
-  _(Add UserStories.md link here)_
+  [Read User Stories](./Planning/UserStories.md)
 
 - **Wireframing**  
   Designed layout, hierarchy, and component relationships before development.
-  _(Add folder link here)_
+  [View initial Wireframes](./Planning/Wireframe/)
 
 ---
 
-## MVP Technical Requirements Mapping
+## Project Structure
 
-- **React Requirements**
-  - ≥ 5 components
-  - ≥ 4 props
-  - ≥ 2 useState hooks
-  - ≥ 2 routes (React Router)
-  - ≥ 1 lifted state (enabling CRUD functionality)
-
-- **API Integration**
-  - External APIs are used to fetch and display real-world F1 data
-
-- **CRUD Functionality**
-  - Implemented using Airtable via REST API (`fetch()`)
-
-- **Deployment**
-  - Application is deployed and publicly accessible
-
----
-
-## Modular & Reusable Components
-
-The application follows a **single-responsibility component architecture**, where each component is focused, reusable, and driven by props.
-
-| Component              | Responsibility                                                                    |
-| ---------------------- | --------------------------------------------------------------------------------- |
-| **NavBar**             | Provides global navigation across routes.                                         |
-| **HeroSection**        | Highlights the next race with countdown and live weather conditions.              |
-| **DriverCard**         | Displays driver details (number, team, points) with favourite toggle interaction. |
-| **StandingsList**      | Reusable list component for ranking data (drivers/constructors).                  |
-| **RaceCard**           | Displays race details (circuit, location, date) with watchlist interaction.       |
-| **FavoriteDriverCard** | Summarises a selected favourite driver on the main dashboard.                     |
-| **WatchlistForm**      | Controlled form for managing watchlist entries.                                   |
-| **DreamTeamBuilder**   | Controlled form for creating and persisting custom team selections.               |
-
-This modular structure improves **scalability**, **maintainability**, and **code reuse**.
+```
+src/
+├── assets/     # Images, SVGs, and brand assets
+├── components/ # Reusable UI atoms (Cards, Buttons, Lists)
+├── pages/      # Route-level views (Home, Drivers, DreamTeam, Races)
+├── services/   # API abstraction (airtable.js, jolpi.js, weather.js)
+├── styles/     # Tailwind and global CSS (App.css, index.css)
+├── utils/      # Helper functions (date formatting, team colors)
+├── App.jsx     # Routing and global state
+└── main.jsx    # Entry point
+```
 
 ---
 
@@ -114,7 +91,7 @@ The application integrates multiple APIs to provide dynamic, real-time content:
 | Dream Team            | Airtable       | User-specific team builder (CRUD)          |
 | Favourite Driver      | Airtable       | User-saved favourite driver (CRUD)         |
 
-- **Jolpi (Ergast) API**
+**Jolpi (Ergast) Endpoints**
 
 | Resource  | Endpoint           |
 | --------- | ------------------ |
@@ -122,49 +99,15 @@ The application integrates multiple APIs to provide dynamic, real-time content:
 | Standings | `/driverstandings` |
 | Races     | `/races`           |
 
-- **WeatherAPI**  
-  Used to fetch real-time weather conditions for upcoming race locations.
+**WeatherAPI** — Fetches real-time weather conditions for upcoming race locations.
 
-- **OpenF1 API (Future Scope)**  
-  Intended for deeper telemetry data such as car details, laps, sessions, and live timing.
-
----
-
-## Bruno API Collection
-
-The project uses [Bruno](https://www.usebruno.com/) for API collection management, with the following structure:
-
-```
-Bruno/
-├── Airtable-CRUD/
-│   ├── WatchList/
-│   │   ├── GET  — All to Watchlist Logs
-│   │   ├── POST — Add to Watchlist
-│   │   └── DEL  — Remove from Watchlist
-│   ├── DreamTeam/
-│   │   ├── GET   — DreamTeam
-│   │   ├── POST  — create-DreamTeam
-│   │   ├── DEL   — delete-DreamTeam
-│   │   ├── PUT   — overwrite-DreamTeam
-│   │   └── PATCH — update-DreamTeam
-│   └── FavouriteDriver/
-│       ├── GET  — All Favorites Logs
-│       ├── DEL  — Remove from Favorite
-│       └── POST — Add to Favorite
-├── Jolpi-F1-Core/
-│   ├── 01-Dashboard-Home
-│   ├── 02-Drivers-Directory
-│   ├── 03-Race-Calendar
-│   └── 04-Dream-Team-Builder
-├── Weather/
-└── Archive/
-```
+**OpenF1 API (Future Scope)** — Intended for deeper telemetry: car details, laps, sessions, and live timing.
 
 ---
 
 ## CRUD Functionality (Airtable)
 
-Airtable is used as a lightweight backend and is accessed directly via `fetch()` to manage user-specific data across two tables.
+Airtable is used as a lightweight backend, accessed directly via `fetch()` to manage user-specific data.
 
 **Watchlist**
 
@@ -194,51 +137,62 @@ Airtable is used as a lightweight backend and is accessed directly via `fetch()`
 
 ---
 
-### Implementation Notes
-
-- Controlled forms manage all user input
-- Data is persisted via Airtable REST endpoints
-- UI updates are synced with local state after each operation
-
----
-
-## Project Structure
-
-```
-src/
-├── assets/     # Images, SVGs, and brand assets
-├── components/ # Reusable UI atoms (Cards, Buttons, Lists)
-├── pages/      # Route-level views (Home, Drivers, DreamTeam, Races)
-├── services/   # API abstraction (airtable.js, jolpi.js, weather.js)
-├── styles/     # Tailwind and global CSS (App.css, index.css)
-├── utils/      # Helper functions (date formatting, team colors)
-├── App.jsx     # Routing and global state
-└── main.jsx    # Entry point
-```
-
----
-
 ## State Management
 
-Global state for the Watchlist and Dream Team is managed in App.jsx using `useState`.
-This state is "lifted" to allow data synchronization across the Dashboard and specialized pages.
-Fetching is handled via `useEffect` within the services/ layer to ensure a clean separation of concerns.
+Global state for the Watchlist, Dream Team, and Favourite Drivers is managed in `App.jsx` using `useState`. This state is lifted to allow data synchronisation across the Dashboard and specialised pages. Fetching is handled via `useEffect` within the `services/` layer to ensure a clean separation of concerns.
 
 ---
 
-## Component Architecture
+## Modular & Reusable Components
 
-### Core Components
+The application follows a **single-responsibility component architecture**, where each component is focused, reusable, and driven by props.
 
-- **App** — Root container managing global state and routing
-- **Navbar** — Navigation layer
-- **HomePage** — Dashboard overview
-- **Standings** — Ranking display
-- **DriversList** — Driver directory
-- **DriverCard** — Individual driver unit
-- **RaceCalendar** — Race schedule view
-- **Watchlist** — User-managed race list
-- **DreamTeam** — Custom team builder
+| Component               | Page(s) Used        | Responsibility                                                                                                                            |
+| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **NavBar**              | All                 | Global navigation with active route highlighting.                                                                                         |
+| **HeroSection**         | Overview            | Displays next race name, countdown timer, and live weather conditions.                                                                    |
+| **WatchlistPanel**      | Overview, Races     | Shows user's saved watchlist races with flag and date. Supports remove (×).                                                               |
+| **StandingsList**       | Overview            | Reusable ranked list for Top 5 Driver Standings.                                                                                          |
+| **FavouriteDriverCard** | Overview, Drivers   | Summarises a saved favourite driver — name, flag, points, position.                                                                       |
+| **DriverCard**          | Drivers, Dream Team | Core driver unit — team colour background, code, number, photo, points, position. Accepts an action button (Add to Favourites / Remove).  |
+| **DreamTeamForm**       | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                                 |
+| **DreamTeamLogs**       | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
+| **TeamCard**            | Dream Team          | Displays chosen constructor — team logo, car image, and team colour accent.                                                               |
+| **TrackCard**           | Dream Team          | Displays chosen circuit — country flag, circuit name, and race date range.                                                                |
+| **RaceCard**            | Races               | Displays circuit map silhouette, country name, circuit name, date, and Add to Watchlist button. Past races show "View Standings" instead. |
+| **WatchlistRaceCard**   | Races               | Expanded watchlist entry — flag, name, date, live countdown, and remove (×).                                                              |
+
+### Component Tree
+
+```
+App
+├── NavBar
+├── HomePage (Overview)
+│   ├── HeroSection
+│   │   └── [countdown timer + weather data]
+│   ├── WatchlistPanel
+│   │   └── WatchlistRaceCard
+│   ├── StandingsList
+│   └── FavouriteDriverCard
+├── DriversPage
+│   ├── FavouriteDriversSection
+│   │   └── DriverCard [remove mode]
+│   └── AllDriversSection
+│       └── DriverCard [add mode]
+├── DreamTeamPage
+│   ├── DreamTeamForm (Left-top)
+│   ├── DreamTeamLogs (Left-bottom)
+│   │   └── [log entry + delete]
+│   └── DreamTeamPreview (Right)
+│       ├── DriverCard [primary + secondary]
+│       ├── TeamCard
+│       └── TrackCard
+└── RacesPage
+    ├── WatchlistSection
+    │   └── WatchlistRaceCard [remove mode]
+    └── ScheduleSection
+        └── RaceCard [add mode]
+```
 
 ---
 
@@ -247,19 +201,15 @@ Fetching is handled via `useEffect` within the services/ layer to ensure a clean
 - Clean, dashboard-style UI
 - Strong visual hierarchy for quick scanning
 - Card-based layout for modular content blocks
-
-### Visual Direction
-
 - Light theme with F1-inspired accents
-- Team-based color highlights
-- Consistent spacing and typography system
+- Team-based colour highlights and consistent spacing
 
 ---
 
 ## Future Roadmap
 
 - **Teams Page:** Detailed view of all constructors and their history.
-- **F1 Legends:** Explore the Hall of Fame Historical Profiles of F1.
+- **F1 Legends:** Explore Hall of Fame historical driver profiles.
 - **Driver Search & Filter:** Find any driver by name or team instantly.
 - **Past Race Results:** See completed race outcomes directly on race cards.
 - **Social Sharing:** Share your Dream Team lineup on social media.
