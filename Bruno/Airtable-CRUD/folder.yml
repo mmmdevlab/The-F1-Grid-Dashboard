@@ -6,5 +6,5 @@ info:
 request:
   headers:
     - name: Authorization
-      value: Bearer {{process.env.AIRTABLE_TOKEN}}
+      value: Bearer {{process.env.VITE_AIRTABLE_TOKEN}}
   auth: inherit

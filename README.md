@@ -69,8 +69,6 @@ src/
 ├── components/ # Reusable UI atoms (Cards, Buttons, Lists)
 ├── pages/      # Route-level views (Home, Drivers, DreamTeam, Races)
 ├── services/   # API abstraction (airtable.js, jolpi.js, weather.js)
-├── styles/     # Tailwind and global CSS (App.css, index.css)
-├── utils/      # Helper functions (date formatting, team colors)
 ├── App.jsx     # Routing and global state
 └── main.jsx    # Entry point
 ```
