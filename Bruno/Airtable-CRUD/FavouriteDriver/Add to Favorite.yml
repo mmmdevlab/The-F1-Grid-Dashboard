@@ -1,0 +1,29 @@
+info:
+  name: Add to Favorite
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/FavouriteDrivers
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "fields": {
+          "driverId": "albon",
+          "driverFirstName": "Alexander",
+          "teamName": "williams"
+        },
+        "typecast": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

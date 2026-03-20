@@ -1,0 +1,35 @@
+info:
+  name: overwrite-DreamTeam
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/DreamTeam
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "records": [
+          {
+            "id": "recUO9pVgsgMsEHFH",
+            "fields": {
+              "fldQNTnlx9adpYPLZ": "2026-03-20T12:00:00.000Z",
+              "fldruddpYqK2S9y9O": "norris",
+              "flde0AntMy2fhXhLN": "piastri",
+              "fldEZ5uA0PeyiaFRK": "mclaren",
+              "fldzCzTVwmK8aGquI": "silverstone"
+            }
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

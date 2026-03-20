@@ -1,0 +1,22 @@
+info:
+  name: (Track) circuits by id
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: https://api.jolpi.ca/ergast/f1/:season/circuits/:circuitId/races/
+  params:
+    - name: circuitId
+      value: albert_park
+      type: path
+    - name: season
+      value: "2026"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

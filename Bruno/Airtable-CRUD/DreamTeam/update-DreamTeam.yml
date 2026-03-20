@@ -1,0 +1,31 @@
+info:
+  name: update-DreamTeam
+  type: http
+  seq: 2
+
+http:
+  method: PATCH
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/DreamTeam
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "records": [
+          {
+            "id": "recUO9pVgsgMsEHFH", 
+            "fields": {
+              "fldruddpYqK2S9y9O": "max_verstappen" 
+            }
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

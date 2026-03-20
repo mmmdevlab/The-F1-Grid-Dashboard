@@ -1,0 +1,10 @@
+info:
+  name: Airtable-CRUD
+  type: folder
+  seq: 1
+
+request:
+  headers:
+    - name: Authorization
+      value: Bearer {{process.env.AIRTABLE_TOKEN}}
+  auth: inherit

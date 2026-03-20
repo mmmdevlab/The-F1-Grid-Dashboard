@@ -1,0 +1,19 @@
+info:
+  name: Stints
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: https://api.openf1.org/v1/stints?session_key=9165
+  params:
+    - name: session_key
+      value: "9165"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

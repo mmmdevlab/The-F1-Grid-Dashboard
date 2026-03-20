@@ -1,0 +1,25 @@
+info:
+  name: lap session
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: https://api.openf1.org/v1/laps?session_key=9161&driver_number=63&lap_number=8
+  params:
+    - name: session_key
+      value: "9161"
+      type: query
+    - name: driver_number
+      value: "63"
+      type: query
+    - name: lap_number
+      value: "8"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

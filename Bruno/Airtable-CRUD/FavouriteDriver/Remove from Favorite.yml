@@ -1,0 +1,19 @@
+info:
+  name: Remove from Favorite
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/FavouriteDrivers//:recordId
+  params:
+    - name: recordId
+      value: recnMAjfLYLIxZjtg
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

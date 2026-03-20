@@ -1,0 +1,35 @@
+info:
+  name: create-DreamTeam
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/DreamTeam
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "records": [
+          {
+            "fields": {
+              "fldQNTnlx9adpYPLZ": "2026-03-20T12:00:00.000Z",
+              "fldruddpYqK2S9y9O": "max_verstappen",
+              "flde0AntMy2fhXhLN": "piastri",
+              "fldEZ5uA0PeyiaFRK": "red_bull",
+              "fldzCzTVwmK8aGquI": "albert_park"
+            }
+          }
+        ],
+        "typecast": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

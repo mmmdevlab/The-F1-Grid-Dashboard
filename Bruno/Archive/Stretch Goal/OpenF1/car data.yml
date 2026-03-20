@@ -1,0 +1,40 @@
+info:
+  name: car data
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: https://api.openf1.org/v1/car_data
+  params:
+    - name: driver_number
+      value: "55"
+      type: query
+      disabled: true
+    - name: session_key
+      value: key
+      type: query
+      disabled: true
+    - name: speed
+      value: "315"
+      type: query
+      disabled: true
+    - name: throttle
+      value: ""
+      type: query
+      disabled: true
+    - name: brake
+      value: ""
+      type: query
+      disabled: true
+    - name: meeting_key
+      value: latest
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

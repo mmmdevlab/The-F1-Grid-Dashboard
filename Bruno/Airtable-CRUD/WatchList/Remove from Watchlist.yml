@@ -1,0 +1,22 @@
+info:
+  name: Remove from Watchlist
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/Watchlist/:id
+  params:
+    - name: id
+      value: recuGZhkvB5vkzRFm
+      type: path
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,28 @@
+info:
+  name: Add to Watchlist
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/Watchlist
+  body:
+    type: json
+    data: |-
+      {
+        "records": [
+          {
+            "fields": {
+              "circuitId": "albert_park",
+              "raceName": "Australian Grand Prix"
+            }
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

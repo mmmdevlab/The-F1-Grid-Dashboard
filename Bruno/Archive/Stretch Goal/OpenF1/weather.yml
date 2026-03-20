@@ -1,0 +1,28 @@
+info:
+  name: weather
+  type: http
+  seq: 6
+
+http:
+  method: GET
+  url: https://api.openf1.org/v1/weather
+  params:
+    - name: meeting_key
+      value: "1208"
+      type: query
+      disabled: true
+    - name: wind_direction>
+      value: "130"
+      type: query
+      disabled: true
+    - name: track_temperature>
+      value: "52"
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

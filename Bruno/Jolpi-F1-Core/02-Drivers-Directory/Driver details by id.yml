@@ -1,0 +1,22 @@
+info:
+  name: Driver details by id
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: https://api.jolpi.ca/ergast/f1/:season/drivers/:driverId/driverStandings.json
+  params:
+    - name: season
+      value: "2026"
+      type: path
+    - name: driverId
+      value: russell
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,22 @@
+info:
+  name: delete-DreamTeam
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: https://api.airtable.com/v0/appo0X6WMZzMigvcE/DreamTeam/:recordId
+  params:
+    - name: recordId
+      value: recizTEXVO1v30OR9
+      type: path
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

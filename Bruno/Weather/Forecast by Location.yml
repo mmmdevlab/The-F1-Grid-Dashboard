@@ -1,0 +1,28 @@
+info:
+  name: Forecast by Location
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://api.weatherapi.com/v1/forecast.json?key=d4369086aeef4da0a9731233261103&q={{Miami}}, {{United States of America}}&days=3&aqi=no
+  params:
+    - name: key
+      value: d4369086aeef4da0a9731233261103
+      type: query
+    - name: q
+      value: "{{Miami}}, {{United States of America}}"
+      type: query
+    - name: days
+      value: "3"
+      type: query
+    - name: aqi
+      value: no
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,7 @@
+info:
+  name: 04-Dream-Team-Builder
+  type: folder
+  seq: 4
+
+request:
+  auth: inherit
