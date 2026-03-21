@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import f1Logo from "../assets/f1-assets/F1-Logo.svg";
 
 const NavBar = () => {
-  console.log("NavBar");
+  // console.log("NavBar");
   return (
     <nav className="flex item-center justify-between px-8 py-4 bg-white border-b border-gray-200">
       <div className="flex items-center gap-2">

@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { getDrivers } from "../services/jolpi";
+import { getDriverStandings } from "../services/jolpi";
 
 const OverviewPage = () => {
   useEffect(() => {
     getDrivers();
+    getDriverStandings();
   }, []);
 
   return (
