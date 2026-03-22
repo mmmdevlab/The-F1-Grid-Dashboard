@@ -29,3 +29,18 @@ export const getDriverStandings = async () => {
     console.log(`getDriverStandings error`, error.message);
   }
 };
+
+export const getRaces = async () => {
+  console.log(`getRaces fetching`);
+  try {
+    const response = await fetch(`${BASE_URL}/2026/races.json`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`getRaces: data in`, data);
+    return data.MRData.RaceTable.Races;
+  } catch (error) {
+    console.log(`getRaces error:`, error.message);
+  }
+};

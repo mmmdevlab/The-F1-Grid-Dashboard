@@ -150,7 +150,7 @@ The application follows a **single-responsibility component architecture**, wher
 | **NavBar**              | All                 | Global navigation with active route highlighting.                                                                                         |
 | **HeroSection**         | Overview            | Displays next race name, countdown timer, and live weather conditions.                                                                    |
 | **WatchlistPanel**      | Overview, Races     | Shows user's saved watchlist races with flag and date. Supports remove (×).                                                               |
-| **StandingsList**       | Overview            | Reusable ranked list for Top 5 Driver Standings.                                                                                          |
+| **StandingList**        | Overview            | Reusable ranked list for Top 10 Driver Standings.                                                                                         |
 | **FavouriteDriverCard** | Overview, Drivers   | Summarises a saved favourite driver — name, flag, points, position.                                                                       |
 | **DriverCard**          | Drivers, Dream Team | Core driver unit — team colour background, code, number, photo, points, position. Accepts an action button (Add to Favourites / Remove).  |
 | **DreamTeamForm**       | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                                 |

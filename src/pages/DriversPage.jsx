@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { getDrivers, getDriverStandings } from "../services/jolpi";
+import { useFavourites } from "../context/FavouritesContext.jsx";
 import DriverCard from "../components/DriverCard";
 
-const DriversPage = ({ favourites, addFavourite, removeFavourite }) => {
+const DriversPage = () => {
+  const { favourites, addFavourite, removeFavourite } = useFavourites();
   const [drivers, setDrivers] = useState([]);
   const [standings, setStandings] = useState([]);
 
