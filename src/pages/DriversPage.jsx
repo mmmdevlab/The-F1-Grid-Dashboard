@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getDrivers, getDriverStandings } from "../services/jolpi";
 import { useFavourites } from "../context/FavouritesContext.jsx";
 import DriverCard from "../components/DriverCard";
+import { getWatchlist } from "../services/airtable.js";
 
 const DriversPage = () => {
   const { favourites, addFavourite, removeFavourite } = useFavourites();
@@ -9,6 +10,9 @@ const DriversPage = () => {
   const [standings, setStandings] = useState([]);
 
   useEffect(() => {
+    getWatchlist().then((data) => {
+      console.log(`Watchlist records:`, data);
+    });
     getDrivers().then((data) => {
       setDrivers(data);
       // console.log("DriversPage: drivers set", data);
@@ -37,7 +41,7 @@ const DriversPage = () => {
           <h2 className="text-l font-semibold tracking-widest text-center mb-4">
             MY FAVOURITE DRIVERS
           </h2>
-          <div className="bg-gray-100 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 min-h-24">
+          <div className="bg-gray-200 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 min-h-24">
             {favourites.length === 0 ? (
               <p className="text-gray-500 text-sm col-span-6 text-center py-4">
                 No Favourite drivers yet - add some below

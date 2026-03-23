@@ -67,6 +67,7 @@ The project followed a structured, product-driven workflow to ensure clarity in 
 src/
 ├── assets/     # Images, SVGs, and brand assets
 ├── components/ # Reusable UI atoms (Cards, Buttons, Lists)
+├── context/    # useContext passing data
 ├── pages/      # Route-level views (Home, Drivers, DreamTeam, Races)
 ├── services/   # API abstraction (airtable.js, jolpi.js, weather.js)
 ├── App.jsx     # Routing and global state
