@@ -5,11 +5,8 @@ info:
 
 http:
   method: GET
-  url: https://api.jolpi.ca/ergast/f1/:season/constructors/:constructorId
+  url: https://api.jolpi.ca/ergast/f1/:season/constructors/
   params:
-    - name: constructorId
-      value: alpine
-      type: path
     - name: season
       value: "2026"
       type: path

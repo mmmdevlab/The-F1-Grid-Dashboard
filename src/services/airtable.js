@@ -3,8 +3,11 @@ const BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
 const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
 const TABLE = `FavouriteDrivers`;
 const WATCHLIST_TABLE = "Watchlist";
+const DREAMTEAM_TABLE = "DreamTeam";
+const FAVOURITEDRIVERS_TABLE = "FavouriteDrivers";
+const DREAMTEAM_TABLE_ID = "tbl27MKRiRItWd5bv";
 
-/* Add / Get / remove Favourite Driver Actions */
+/* Favourite Driver Stuff here */
 /*---------------------------------------------------------------------------GET */
 export const getFavouriteDrivers = async () => {
   //   console.log(`getFavouriteDrivers fetch`, data);
@@ -72,7 +75,7 @@ export const removeFavouriteDriver = async (recordId) => {
     }
     const data = await response.json();
     console.log("removeFavouriteDriver: deleted from Airtable", data);
-    return data;
+    return data.deleted;
   } catch (error) {
     console.error("removeFavouriteDriver error:", error.message);
   }
@@ -150,10 +153,132 @@ export const removeWatchlist = async (recordId) => {
 
     const data = await response.json();
     console.log(`removeWatchlist: deleted from Airtable`, data);
-    return data;
+    return data.deleted;
   } catch (error) {
     console.error(`removeWatchlist error:`, error.message);
   }
 };
 
 /* Dream Team stuff here */
+/*---------------------------------------------------------------------------GET */
+
+export const getDreamTeam = async () => {
+  console.log(`getDreamTeam:`);
+  try {
+    const response = await fetch(`${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`getDreamTeam: data recieved`, data);
+    return data.records;
+  } catch (error) {
+    console.error(`getDreamTeam error:`, error.message);
+  }
+};
+
+/*---------------------------------------------------------------------------CREATE */
+
+export const createDreamTeam = async (formData) => {
+  console.log(`createDreamTeam:`, formData);
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE_ID}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: [
+            {
+              fields: {
+                fldQNTnlx9adpYPLZ: new Date().toISOString(),
+                fldruddpYqK2S9y9O: formData.primaryDriverId,
+                flde0AntMy2fhXhLN: formData.secondaryDriverId,
+                fldEZ5uA0PeyiaFRK: formData.constructorId,
+                fldzCzTVwmK8aGquI: formData.circuitId,
+              },
+            },
+          ],
+          typecast: true,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(`Airtable Error:`, errorData);
+      return null;
+    }
+    const data = await response.json();
+    return data.records[0];
+  } catch (error) {
+    console.error(`createDreamTeam error:`, error.message);
+    return null;
+  }
+};
+/*---------------------------------------------------------------------------EDIT */
+
+export const editDreamTeam = async (recordId, formData) => {
+  console.log(`editDreamTeam:`, recordId, formData);
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}/${recordId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fields: {
+            primaryDriverId: formData.primaryDriverId,
+            secondaryDriverId: formData.secondaryDriverId,
+            constructorId: formData.constructorId,
+            circuitId: formData.circuitId,
+          },
+          typecast: true,
+        }),
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`editDreamTeam: updated`, data);
+    return data;
+  } catch (error) {
+    console.error(`editDreamTeam error:`, error.message);
+  }
+};
+
+/*---------------------------------------------------------------------------DELETE */
+
+export const removeDreamTeam = async (recordId) => {
+  console.log(`removeDreamTeam: starting`, recordId);
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}/${recordId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`removeDreamTeam: deleted from Airtable`, data);
+    return data.deleted;
+  } catch (error) {
+    console.error(`removeDreamTeam error:`, error.message);
+    return false;
+  }
+};

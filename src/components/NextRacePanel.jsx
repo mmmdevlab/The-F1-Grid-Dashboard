@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { nextRace } from "../services/jolpi";
+import { nextRace } from "../services/jolpi.js";
+import CountDownRace from "./CountDownRace";
 
 const NextRacePanel = () => {
   const [nextRaceData, setNextRaceData] = useState(null);
@@ -17,26 +18,34 @@ const NextRacePanel = () => {
       });
   }, []);
 
+  const raceDateTimeString =
+    nextRaceData?.date && nextRaceData?.time
+      ? `${nextRaceData.date}T${nextRaceData.time}`
+      : null;
+
   return (
-    <section>
-      <h2 className="text-l font-semibold tracking-widest text-center mb-4 uppercase">
-        next race
+    <section className="rounded-xl p-6 border border-gray-200">
+      <h2 className="text-xs font-bold tracking-widest text-red-600 mb-4 uppercase">
+        Next Race
       </h2>
-      <div className="bg-gray-800 rounded-xl p-6 min-h-[160px] flex flex-col justify-center shadow-lg">
+
+      <div className="bg-gradient-to-b from-black to-red-500 rounded-xl p-6 min-h-[200px]">
         {nextRaceData ? (
           <div>
-            <h3 className="text-white text-xl font-bold">
-              {nextRaceData.raceName}
-            </h3>
-            <p className="text-gray-300">{nextRaceData.Circuit.circuitName}</p>
-            <div className="mt-4 flex gap-4 text-sm font-mono text-red-400">
-              <span className="bg-red-900/30 px-2 py-1 rounded">
+            <div className="mt-2 flex gap-4 text-md font-mono text-white">
+              <span className="bg-red-500 px-2 py-1 rounded">
                 {nextRaceData.date}
               </span>
-              <span className="bg-red-900/30 px-2 py-1 rounded">
+              <span className="bg-red-500 px-2 py-1 rounded">
                 {nextRaceData.time?.replace("Z", " UTC")}
               </span>
             </div>
+            <h1 className="text-white text-5xl pt-3 font-bold">
+              {nextRaceData.raceName}
+            </h1>
+            <p className="text-white text-xl pt-6">
+              {nextRaceData.Circuit.circuitName}
+            </p>
           </div>
         ) : (
           <p className="text-white opacity-50 italic">
@@ -45,10 +54,14 @@ const NextRacePanel = () => {
               : "No upcoming race data available"}
           </p>
         )}
-        <br />
-        <div>
-          <p className="text-white text-sm font-medium uppercase">Weather</p>
-        </div>
+
+        {raceDateTimeString && (
+          <div className="mt-8 flex gap-4 text-3xl font-mono text-white">
+            <span>
+              <CountDownRace raceDate={raceDateTimeString} />
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );

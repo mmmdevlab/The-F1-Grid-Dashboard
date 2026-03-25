@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDriverStandings } from "../services/jolpi";
+import { getDriverStandings } from "../services/jolpi.js";
 import { useFavourites } from "../context/FavouritesContext.jsx";
 import DriverCard from "../components/DriverCard";
 import StandingList from "../components/StandingList.jsx";
@@ -9,14 +9,12 @@ import NextRacePanel from "../components/NextRacePanel.jsx";
 const OverviewPage = () => {
   const { favourites, removeFavourite } = useFavourites();
   const [standings, setStandings] = useState([]);
-  const [allStandings, setAllStandings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getDriverStandings()
       .then((data) => {
-        setStandings(data.slice(0, 10));
-        setAllStandings(data);
+        setStandings(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -27,35 +25,49 @@ const OverviewPage = () => {
 
   return (
     <main className="px-8 py-6">
-      <h1 className="text-2xl font-bold mb-6">Overview Page</h1>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold">
+          Real-time insights for the entire grid
+        </h1>
+      </div>
 
-      <section className="grid xs:grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <NextRacePanel />
-        <WatchlistPanel />
+      <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-col-4 gap-4 mb-4">
+        <div className="lg:col-span-1">
+          <NextRacePanel />
+        </div>
+        <div className="lg:col-span-1">
+          <StandingList standings={standings} />
+        </div>
       </section>
 
-      <section className="grid xs:grid-cols-2 sm:grid-cols-2 gap-4">
-        <StandingList standings={standings} />
+      <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <WatchlistPanel />
+        </div>
 
         <div className="rounded-xl p-6 border border-gray-200">
           <p className="text-xs font-semibold text-red-600 tracking-widest mb-4">
             MY TOP DRIVERS
           </p>
-          {favourites.length === 0 ? (
+
+          {loading ? (
+            <p className="text-gray-400">Loading your stars...</p>
+          ) : favourites.length === 0 ? (
             <p className="text-gray-500 text-sm">No favourite drivers yet</p>
           ) : (
-            <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid xs:grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {favourites.map((driver) => {
-                const standing = allStandings.find(
+                const standingMatch = standings.find(
                   (s) => s.Driver.driverId === driver.driverId,
                 );
                 return (
                   <DriverCard
                     key={driver.driverId}
                     driver={driver}
-                    points={standing?.points ?? "—"}
-                    position={standing?.position ?? "—"}
+                    points={standingMatch?.points ?? "—"}
+                    position={standingMatch?.position ?? "—"}
                     isFavourite={true}
+                    hideActions={true}
                     onRemoveFavourite={() => removeFavourite(driver.driverId)}
                   />
                 );

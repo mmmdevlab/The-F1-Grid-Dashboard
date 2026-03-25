@@ -1,3 +1,5 @@
+import { DRIVER_COLOURS } from "../data/driverColours";
+
 const DriverCard = ({
   driver,
   points,
@@ -5,40 +7,57 @@ const DriverCard = ({
   isFavourite,
   onAddFavourite,
   onRemoveFavourite,
+  hideActions = false,
 }) => {
   //   console.log("DriverCard rendered:", driver.familyName);
+  const cardColour = DRIVER_COLOURS[driver.driverId] ?? DRIVER_COLOURS.default;
+
   return (
-    <div className="rounded-xl p-4 bg-blue-950 text-white flex flex-col gap-2 min-h-64">
-      <div className="flex justify-between text-xs opacity-60">
+    <div className={`rounded-xl p-4 ${cardColour} text-white`}>
+      <div className="flex justify-between text-xs font-semibold tracking-widest gap-4 mb-2">
         <span>{driver.code}</span>
         <span>{driver.permanentNumber}</span>
       </div>
 
-      <div className="flex-1">
-        <h2 className="text-xl">{driver.givenName}</h2>
-        <h2 className="text-xl font-bold leading-tight">{driver.familyName}</h2>
-        <p className="text-xs opacity-60 mt-1">{driver.nationality}</p>
-      </div>
-
-      <div className="flex gap-6 text-xs border-t border-white/20 pt-2">
-        <div>
-          <p className="opacity-60">POINTS</p>
-          <p className="font-bold">{points}</p>
-        </div>
-        <div>
-          <p className="opacity-60">POSITION</p>
-          <p className="font-bold">{position}</p>
+      <div>
+        <h2 className="text-2xl">{driver.givenName}</h2>
+        <h2 className="text-2xl font-bold leading-tight">
+          {driver.familyName}
+        </h2>
+        <p className="text-xs mt-2">{driver.nationality}</p>
+        <div className="relative w-full h-40 overflow-hidden rounded-xl">
+          <img
+            src={`src/assets/media/driver-img/${driver.driverId}.png`}
+            alt={`${driver.name} car`}
+            className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-200"
+          />
         </div>
       </div>
 
-      <button
-        onClick={isFavourite ? onRemoveFavourite : onAddFavourite}
-        className={`w-full py-2 rounded-lg text-white text-sm font-medium ${
-          isFavourite ? "bg-[#DC2626]" : "bg-[#16A34A]"
-        }`}
-      >
-        {isFavourite ? "Remove" : "Add to favourites"}
-      </button>
+      <div className="flex border-t border-white/10 pt-2 relative z-10">
+        <div className="flex p-4 flex-col mb-2">
+          <p className="flex justify-between text-xs font-semibold opacity-60 tracking-widest uppercase mb-2">
+            POINTS
+          </p>
+          <h2 className="text-2xl font-bold">{points}</h2>
+        </div>
+        <div className="flex p-4 flex-col mb-2">
+          <p className="flex justify-between text-xs font-semibold opacity-60 tracking-widest uppercase mb-2">
+            POSITION
+          </p>
+          <h2 className="text-2xl font-bold">{position}</h2>
+        </div>
+      </div>
+      {!hideActions && (
+        <button
+          onClick={isFavourite ? onRemoveFavourite : onAddFavourite}
+          className={`w-full py-2 rounded-lg text-white text-sm font-medium ${
+            isFavourite ? "bg-[#DC2626]" : "bg-[#16A34A]"
+          }`}
+        >
+          {isFavourite ? "Remove" : "Add to favourites"}
+        </button>
+      )}
     </div>
   );
 };

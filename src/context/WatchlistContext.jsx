@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getRaces } from "../services/jolpi";
+import { getRaces } from "../services/jolpi.js";
 import {
   getWatchlist,
   addWatchlist as addWatchlistToAirtable,
   removeWatchlist as removeWatchlistFromAirtable,
-} from "../services/airtable";
+} from "../services/airtable.js";
 
 const WatchlistContext = createContext();
 
@@ -33,10 +33,11 @@ export const WatchlistProvider = ({ children }) => {
     });
   };
 
-  const removeFromWatchlist = (recordId) => {
-    removeWatchlistFromAirtable(recordId);
-    setWatchlist((prev) => prev.filter((r) => r.recordId !== recordId));
-    console.log("Removed from watchlist:", recordId);
+  const removeFromWatchlist = async (recordId) => {
+    const deleted = await removeWatchlistFromAirtable(recordId);
+    if (deleted) {
+      setWatchlist((prev) => prev.filter((r) => r.recordId !== recordId));
+    }
   };
 
   return (

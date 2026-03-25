@@ -4,22 +4,28 @@ const StandingList = ({ standings }) => {
   return (
     <div className="rounded-xl p-6 border border-gray-200">
       <p className="text-xs font-semibold text-red-600 tracking-widest mb-4">
-        TOP 10 DRIVER STANDINGS
+        TOP 5 DRIVER STANDINGS
       </p>
       {standings?.map((standing) => (
         <div
           key={standing.Driver.driverId}
-          className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"
+          className="grid items-center gap-2 py-2.5 border-b border-gray-100 last:border-0"
+          style={{ gridTemplateColumns: "280px 1fr 1px 45px" }}
         >
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 text-sm w-4">
+          <div className="flex items-center gap-4 p-2">
+            <span className="text-red-500 font-semibold text-sm w-4">
               {standing.position}
             </span>
-            <span className="font-semibold text-sm">
+            <span className="font-semibold text-xl">
               {standing.Driver.givenName} {standing.Driver.familyName}
             </span>
           </div>
-          <span className="font-bold text-sm">{standing.points}</span>
+          <span className="text-gray-400 text-sm">
+            {standing.Constructor.name}
+          </span>
+          <span className="font-bold text-base text-right">
+            {standing.points}
+          </span>
         </div>
       ))}
     </div>

@@ -10,7 +10,6 @@ const FavouritesContext = createContext();
 
 export const FavouritesProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
-  console.log("FavouritesProvider rendered, favourites:", favourites);
 
   useEffect(() => {
     Promise.all([getFavouriteDrivers(), getDrivers()]).then(
@@ -23,10 +22,6 @@ export const FavouritesProvider = ({ children }) => {
           return { ...fullDriver, recordId: record.id };
         });
         setFavourites(loaded);
-        console.log(
-          "FavouritesProvider: favourite loaded from Airtable",
-          loaded,
-        );
       },
     );
   }, []);
@@ -35,17 +30,16 @@ export const FavouritesProvider = ({ children }) => {
     addFavouriteDriver(driver).then((record) => {
       if (!record) return;
       setFavourites((prev) => [...prev, { ...driver, recordId: record.id }]);
-      console.log(`Added favourite:`, driver.familyName);
     });
   };
 
-  const removeFavourite = (driverId) => {
+  const removeFavourite = async (driverId) => {
     const driver = favourites.find((d) => d.driverId === driverId);
-    if (driver?.recordId) {
-      removeFavouriteDriver(driver.recordId);
+    if (!driver?.recordId) return;
+    const deleted = await removeFavouriteDriver(driver.recordId);
+    if (deleted) {
+      setFavourites((prev) => prev.filter((d) => d.driverId !== driverId));
     }
-    setFavourites((prev) => prev.filter((d) => d.driverId !== driverId));
-    console.log("Removed favourite:", driverId);
   };
 
   return (

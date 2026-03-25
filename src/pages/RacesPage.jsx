@@ -17,15 +17,13 @@ const RacesPage = () => {
 
   return (
     <main className="px-8 py-6">
-      <section className="mb-8">
-        <WatchlistPanel />
-      </section>
+      <WatchlistPanel />
 
-      <section className="mb-8">
+      <section className="py-6">
         <h2 className="text-l font-semibold tracking-widest text-center mb-4">
           SCHEDULE
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-6 mb-8">
           {races.map((race) => {
             const isOnWatchlist = watchlist.some(
               (w) => w?.Circuit?.circuitId === race.Circuit.circuitId,

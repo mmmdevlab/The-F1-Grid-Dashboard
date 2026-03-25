@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDrivers, getDriverStandings } from "../services/jolpi";
+import { getDrivers, getDriverStandings } from "../services/jolpi.js";
 import { useFavourites } from "../context/FavouritesContext.jsx";
 import DriverCard from "../components/DriverCard";
 import { getWatchlist } from "../services/airtable.js";
@@ -38,12 +38,12 @@ const DriversPage = () => {
     <>
       <main className="px-8 py-6">
         <section className="mb-8">
-          <h2 className="text-l font-semibold tracking-widest text-center mb-4">
+          <h2 className="text-xs font-bold text-center tracking-widest text-red-600 mb-4 uppercase">
             MY FAVOURITE DRIVERS
           </h2>
-          <div className="bg-gray-200 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 min-h-24">
+          <div className="rounded-xl p-6 border border-gray-200 bg-gray-200 grid grid-cols-2 md:grid-cols-4 gap-4 min-h-24">
             {favourites.length === 0 ? (
-              <p className="text-gray-500 text-sm col-span-6 text-center py-4">
+              <p className="text-gray-200 text-sm col-span-6 text-center py-4">
                 No Favourite drivers yet - add some below
               </p>
             ) : (
@@ -58,6 +58,7 @@ const DriversPage = () => {
                     points={standing?.points ?? "—"}
                     position={standing?.position ?? "—"}
                     isFavourite={true}
+                    hideActions={true}
                     onRemoveFavourite={() => removeFavourite(driver.driverId)}
                   />
                 );
@@ -66,10 +67,10 @@ const DriversPage = () => {
           </div>
         </section>
         <section className="mb-8">
-          <h2 className="text-l font-semibold tracking-widest text-center mb-4">
+          <h2 className="text-xs font-bold text-center tracking-widest text-red-600 mb-4 uppercase">
             ALL DRIVERS
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="rounded-xl p-6 border border-gray-200 grid grid-cols-2 md:grid-cols-4 gap-4">
             {driversWithStandings.map((driver) => {
               const isFavourite = favourites.some(
                 (f) => f.driverId === driver.driverId,

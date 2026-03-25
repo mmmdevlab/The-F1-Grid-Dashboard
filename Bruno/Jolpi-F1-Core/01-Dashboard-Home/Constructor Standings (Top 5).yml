@@ -5,10 +5,10 @@ info:
 
 http:
   method: GET
-  url: https://api.jolpi.ca/ergast/f1/:season/constructorstandings?limit=5
+  url: https://api.jolpi.ca/ergast/f1/:season/constructorstandings?limit=10
   params:
     - name: limit
-      value: "5"
+      value: "10"
       type: query
     - name: season
       value: "2026"
