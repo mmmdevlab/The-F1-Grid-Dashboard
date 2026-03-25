@@ -39,6 +39,10 @@ export const DRIVER_COLOURS = {
   lawson: "bg-gradient-to-b from-indigo-700 to-black",
   arvid_lindblad: "bg-gradient-to-b from-indigo-700 to-black",
 
+  //cadillac
+  bottas: "bg-gradient-to-b from-zinc-500 to-black",
+  perez: "bg-gradient-to-b from-zinc-500 to-black",
+
   // Fallback for any unknown driver
   default: "bg-gradient-to-b from-zinc-800 to-black",
 };

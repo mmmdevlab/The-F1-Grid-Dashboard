@@ -1,3 +1,5 @@
+import { TEAM_COLOURS } from "../data/teamColours";
+
 const TeamCard = ({
   constructor,
   hideActions = false,
@@ -5,27 +7,27 @@ const TeamCard = ({
   onSelect,
   onRemove,
 }) => {
+  const CardColour =
+    TEAM_COLOURS[constructor.constructorId] ?? TEAM_COLOURS.default;
   return (
-    <div className="rounded-xl p-4 bg-black text-white flex flex-col gap-2 ">
-      <div className="flex justify-between text-xs opacity-60">
-        <span className="uppercase tracking-widest">{constructor.name}</span>
+    <div className={`rounded-xl p-4 ${CardColour} text-white`}>
+      {" "}
+      <div className="p-2 uppercase flex justify-between text-md font-semibold tracking-widest gap-4 mb-2">
+        <span>{constructor.nationality}</span>
         <img
-          src={`src/assets/media/team-logos/${constructor.constructorId}.png`}
+          src={`./media/team-logos/${constructor.constructorId}.png`}
           alt={`${constructor.name} logo`}
-          className="h-6 object-contain bg-black p-1 rounded-md"
+          className="h-10 object-contain bg-black p-1 rounded-md"
         />
       </div>
-
-      <div className="flex-1">
-        <h2 className="text-xl font-bold leading-tight">{constructor.name}</h2>
+      <div className="p-2 flex-1">
+        <h2 className="text-4xl font-bold">{constructor.name}</h2>
         <img
-          src={`src/assets/media/car-img/${constructor.constructorId}.png`}
+          src={`./media/car-img/${constructor.constructorId}.png`}
           alt={`${constructor.name} car`}
-          className="h-16 w-full object-contain my-2"
+          className="p-4 w-full object-contain my-2 hover:scale-105 transition-transform duration-200"
         />
-        <p className="text-xs opacity-60 mt-1">{constructor.nationality}</p>
       </div>
-
       {!hideActions && (
         <button
           onClick={isSelected ? onRemove : onSelect}

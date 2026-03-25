@@ -1,27 +1,29 @@
 const BASE_URL = "https://api.airtable.com/v0";
 const BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
 const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
-const TABLE = `FavouriteDrivers`;
-const WATCHLIST_TABLE = "Watchlist";
+const WATCHLIST_TABLE_ID = "tblnEweSM5lqG0mnC";
 const DREAMTEAM_TABLE = "DreamTeam";
-const FAVOURITEDRIVERS_TABLE = "FavouriteDrivers";
 const DREAMTEAM_TABLE_ID = "tbl27MKRiRItWd5bv";
+const FAVOURITEDRIVER_TABLE_ID = "tblvEY5PzqjHfxqff";
 
 /* Favourite Driver Stuff here */
 /*---------------------------------------------------------------------------GET */
 export const getFavouriteDrivers = async () => {
   //   console.log(`getFavouriteDrivers fetch`, data);
   try {
-    const response = await fetch(`${BASE_URL}/${BASE_ID}/${TABLE}`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${FAVOURITEDRIVER_TABLE_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
       },
-    });
+    );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`getFavouriteDrivers: data received`, data);
+    // console.log(`getFavouriteDrivers: data received`, data);
     return data.records;
   } catch (error) {
     console.error(`getFavouriteDrivers error:`, error.message);
@@ -30,27 +32,30 @@ export const getFavouriteDrivers = async () => {
 
 /*---------------------------------------------------------------------------POST */
 export const addFavouriteDriver = async (driver) => {
-  console.log(`addFavouriteDriver fetch`, driver.familyName);
+  // console.log(`addFavouriteDriver fetch`, driver.familyName);
   try {
-    const response = await fetch(`${BASE_URL}/${BASE_ID}/${TABLE}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fields: {
-          driverId: driver.driverId,
-          driverFirstName: driver.givenName,
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${FAVOURITEDRIVER_TABLE_ID}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
         },
-        typecast: true,
-      }),
-    });
+        body: JSON.stringify({
+          fields: {
+            driverId: driver.driverId,
+            driverFirstName: driver.givenName,
+          },
+          typecast: true,
+        }),
+      },
+    );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`addFavouriteDriver: saved`, data);
+    // console.log(`addFavouriteDriver: saved`, data);
     return data;
   } catch (error) {
     console.log(`addFavouriteDriver error:`, error.message);
@@ -59,10 +64,10 @@ export const addFavouriteDriver = async (driver) => {
 
 /*---------------------------------------------------------------------------DELETE */
 export const removeFavouriteDriver = async (recordId) => {
-  console.log(`removeFavouriteDriver: starting`, recordId);
+  // console.log(`removeFavouriteDriver: starting`, recordId);
   try {
     const response = await fetch(
-      `${BASE_URL}/${BASE_ID}/${TABLE}/${recordId}`,
+      `${BASE_URL}/${BASE_ID}/${FAVOURITEDRIVER_TABLE_ID}/${recordId}`,
       {
         method: "DELETE",
         headers: {
@@ -74,7 +79,7 @@ export const removeFavouriteDriver = async (recordId) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("removeFavouriteDriver: deleted from Airtable", data);
+    // console.log("removeFavouriteDriver: deleted from Airtable", data);
     return data.deleted;
   } catch (error) {
     console.error("removeFavouriteDriver error:", error.message);
@@ -84,18 +89,21 @@ export const removeFavouriteDriver = async (recordId) => {
 /* Watchlist stuff here */
 /*---------------------------------------------------------------------------GET */
 export const getWatchlist = async () => {
-  console.log(`getWatchlist: fetching`);
+  // console.log(`getWatchlist: fetching`);
   try {
-    const response = await fetch(`${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE}`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE_ID}?maxRecords=4`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
       },
-    });
+    );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`getWatchlist: data recieved`, data);
+    // console.log(`getWatchlist: data recieved`, data);
     return data.records;
   } catch (error) {
     console.error(`getWatchlist error:`, error.message);
@@ -104,29 +112,32 @@ export const getWatchlist = async () => {
 
 /*---------------------------------------------------------------------------CREATE */
 export const addWatchlist = async (race) => {
-  console.log(`addWatchlist: fetching`, race.raceName);
+  // console.log(`addWatchlist: fetching`, race.raceName);
   try {
-    const response = await fetch(`${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fields: {
-          circuitId: race.Circuit.circuitId,
-          raceName: race.raceName,
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE_ID}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
         },
-        typecast: true,
-      }),
-    });
+        body: JSON.stringify({
+          fields: {
+            circuitId: race.Circuit.circuitId,
+            raceName: race.raceName,
+          },
+          typecast: true,
+        }),
+      },
+    );
 
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(`addWatchlist: data saved`, data);
+    // console.log(`addWatchlist: data saved`, data);
     return data;
   } catch (error) {
     console.error(`addWatchlist error:`, error.message);
@@ -136,10 +147,10 @@ export const addWatchlist = async (race) => {
 /*---------------------------------------------------------------------------DELETE */
 
 export const removeWatchlist = async (recordId) => {
-  console.log(`removeWatchlist: starting`, recordId);
+  // console.log(`removeWatchlist: starting`, recordId);
   try {
     const response = await fetch(
-      `${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE}/${recordId}`,
+      `${BASE_URL}/${BASE_ID}/${WATCHLIST_TABLE_ID}/${recordId}`,
       {
         method: "DELETE",
         headers: {
@@ -152,7 +163,7 @@ export const removeWatchlist = async (recordId) => {
     }
 
     const data = await response.json();
-    console.log(`removeWatchlist: deleted from Airtable`, data);
+    // console.log(`removeWatchlist: deleted from Airtable`, data);
     return data.deleted;
   } catch (error) {
     console.error(`removeWatchlist error:`, error.message);
@@ -163,18 +174,21 @@ export const removeWatchlist = async (recordId) => {
 /*---------------------------------------------------------------------------GET */
 
 export const getDreamTeam = async () => {
-  console.log(`getDreamTeam:`);
+  // console.log(`getDreamTeam:`);
   try {
-    const response = await fetch(`${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
+    const response = await fetch(
+      `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
       },
-    });
+    );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`getDreamTeam: data recieved`, data);
+    // console.log(`getDreamTeam: data recieved`, data);
     return data.records;
   } catch (error) {
     console.error(`getDreamTeam error:`, error.message);
@@ -184,7 +198,7 @@ export const getDreamTeam = async () => {
 /*---------------------------------------------------------------------------CREATE */
 
 export const createDreamTeam = async (formData) => {
-  console.log(`createDreamTeam:`, formData);
+  // console.log(`createDreamTeam:`, formData);
   try {
     const response = await fetch(
       `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE_ID}`,
@@ -217,6 +231,7 @@ export const createDreamTeam = async (formData) => {
     }
     const data = await response.json();
     return data.records[0];
+    // console.log(`createDreamTeam: updated`, data);
   } catch (error) {
     console.error(`createDreamTeam error:`, error.message);
     return null;
@@ -225,7 +240,7 @@ export const createDreamTeam = async (formData) => {
 /*---------------------------------------------------------------------------EDIT */
 
 export const editDreamTeam = async (recordId, formData) => {
-  console.log(`editDreamTeam:`, recordId, formData);
+  // console.log(`editDreamTeam:`, recordId, formData);
   try {
     const response = await fetch(
       `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}/${recordId}`,
@@ -250,7 +265,7 @@ export const editDreamTeam = async (recordId, formData) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`editDreamTeam: updated`, data);
+    // console.log(`editDreamTeam: updated`, data);
     return data;
   } catch (error) {
     console.error(`editDreamTeam error:`, error.message);
@@ -260,7 +275,7 @@ export const editDreamTeam = async (recordId, formData) => {
 /*---------------------------------------------------------------------------DELETE */
 
 export const removeDreamTeam = async (recordId) => {
-  console.log(`removeDreamTeam: starting`, recordId);
+  // console.log(`removeDreamTeam: starting`, recordId);
   try {
     const response = await fetch(
       `${BASE_URL}/${BASE_ID}/${DREAMTEAM_TABLE}/${recordId}`,
@@ -275,7 +290,7 @@ export const removeDreamTeam = async (recordId) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`removeDreamTeam: deleted from Airtable`, data);
+    // console.log(`removeDreamTeam: deleted from Airtable`, data);
     return data.deleted;
   } catch (error) {
     console.error(`removeDreamTeam error:`, error.message);

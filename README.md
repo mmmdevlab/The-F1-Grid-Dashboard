@@ -146,20 +146,19 @@ Global state for the Watchlist, Dream Team, and Favourite Drivers is managed in 
 
 The application follows a **single-responsibility component architecture**, where each component is focused, reusable, and driven by props.
 
-| Component               | Page(s) Used        | Responsibility                                                                                                                            |
-| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **NavBar**              | All                 | Global navigation with active route highlighting.                                                                                         |
-| **HeroSection**         | Overview            | Displays next race name, countdown timer, and live weather conditions.                                                                    |
-| **WatchlistPanel**      | Overview, Races     | Shows user's saved watchlist races with flag and date. Supports remove (×).                                                               |
-| **StandingList**        | Overview            | Reusable ranked list for Top 10 Driver Standings.                                                                                         |
-| **FavouriteDriverCard** | Overview, Drivers   | Summarises a saved favourite driver — name, flag, points, position.                                                                       |
-| **DriverCard**          | Drivers, Dream Team | Core driver unit — team colour background, code, number, photo, points, position. Accepts an action button (Add to Favourites / Remove).  |
-| **DreamTeamForm**       | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                                 |
-| **DreamTeamLogs**       | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
-| **TeamCard**            | Dream Team          | Displays chosen constructor — team logo, car image, and team colour accent.                                                               |
-| **TrackCard**           | Dream Team          | Displays chosen circuit — country flag, circuit name, and race date range.                                                                |
-| **RaceCard**            | Races               | Displays circuit map silhouette, country name, circuit name, date, and Add to Watchlist button. Past races show "View Standings" instead. |
-| **WatchlistRaceCard**   | Races               | Expanded watchlist entry — flag, name, date, live countdown, and remove (×).                                                              |
+| Component            | Page(s) Used        | Responsibility                                                                                                                            |
+| -------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **NavBar**           | All                 | Global navigation with active route highlighting.                                                                                         |
+| **CountDownRace**    | Overview            | Displays next race countdown timer                                                                                                        |
+| **WatchlistPanel**   | Overview, Races     | Shows user's saved watchlist races with flag and date. Supports remove (×).                                                               |
+| **StandingList**     | Overview            | Reusable ranked list for Top 10 Driver Standings.                                                                                         |
+| **DriverCard**       | Drivers, Dream Team | Core driver unit — team colour background, code, number, photo, points, position. Accepts an action button (Add to Favourites / Remove).  |
+| **DreamTeamForm**    | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                                 |
+| **DreamTeamLogs**    | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
+| **DreamTeamPreview** | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
+| **TeamCard**         | Dream Team          | Displays chosen constructor — team logo, car image, and team colour accent.                                                               |
+| **RaceCard**         | Dream Team, Races   | Displays circuit map silhouette, country name, circuit name, date, and Add to Watchlist button. Past races show "View Standings" instead. |
+| **WatchlistPanel**   | Races               | Expanded watchlist entry — flag, name, date, live countdown, and remove (×).                                                              |
 
 ### Component Tree
 
@@ -211,6 +210,7 @@ App
 - **F1 Legends:** Explore Hall of Fame historical driver profiles.
 - **Driver Search & Filter:** Find any driver by name or team instantly.
 - **Past Race Results:** See completed race outcomes directly on race cards.
+- **Add to calender** Race date to be added to google or apple calender sync.
 - **Social Sharing:** Share your Dream Team lineup on social media.
 - **OpenF1 API Integration:** Deeper telemetry — car details, laps, sessions, and live timing.
 

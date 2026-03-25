@@ -10,7 +10,7 @@ const DreamTeamContext = createContext();
 export const useDreamTeam = () => useContext(DreamTeamContext);
 
 export const DreamTeamProvider = ({ children }) => {
-  const [teams, setTeams] = useState();
+  const [teams, setTeams] = useState([]);
 
   const loadTeams = async () => {
     const records = await getDreamTeam();
@@ -18,7 +18,7 @@ export const DreamTeamProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    loadTeams();
+    // loadTeams();
   }, []);
 
   const createTeam = async (formData) => {

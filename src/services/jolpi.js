@@ -3,7 +3,7 @@ const BASE_URL = "https://api.jolpi.ca/ergast/f1";
 /*---------------------------------------------------------------------------DRIVERS */
 
 export const getDrivers = async () => {
-  console.log(`getDrivers fetch`);
+  // console.log(`getDrivers fetch`);
   try {
     const response = await fetch(`${BASE_URL}/2026/drivers.json`);
     if (!response.ok) {
@@ -11,7 +11,7 @@ export const getDrivers = async () => {
     }
     const data = await response.json();
     const rawDrivers = data.MRData.DriverTable.Drivers;
-    console.log(`getDrivers: data got`, data);
+    // console.log(`getDrivers: data got`, data);
     const drivers = rawDrivers.map((d) => ({
       driverId: d.driverId,
       givenName: d.givenName,
@@ -33,13 +33,13 @@ export const getDriverStandings = async () => {
   // console.log(`getDriverStandings fetch`);
   try {
     const response = await fetch(
-      `${BASE_URL}/2026/driverStandings.json?limit=5`,
+      `${BASE_URL}/2026/driverStandings.json?limit=10`,
     );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`getDriverStandings: data got`, data);
+    // console.log(`getDriverStandings: data got`, data);
     const rawStandings =
       data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings ?? [];
     const standings = rawStandings.map((s) => ({
@@ -68,14 +68,48 @@ export const getDriverStandings = async () => {
 /*---------------------------------------------------------------------------RACES */
 
 export const getRaces = async () => {
-  console.log(`getRaces fetching`);
+  // console.log(`getRaces fetching`);
   try {
     const response = await fetch(`${BASE_URL}/2026/races.json`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(`getRaces: data in`, data);
+    // console.log(`getRaces: data in`, data);
+    const rawRaces = data.MRData.RaceTable.Races;
+    const races = rawRaces.map((r) => ({
+      round: r.round,
+      raceName: r.raceName,
+      date: r.date,
+      time: r.time,
+      FirstPractice: r.FirstPractice,
+      Circuit: {
+        circuitId: r.Circuit.circuitId,
+        circuitName: r.Circuit.circuitName,
+        Location: {
+          country: r.Circuit.Location.country,
+          locality: r.Circuit.Location.locality,
+        },
+      },
+    }));
+    return races;
+  } catch (error) {
+    console.log(`getRaces error:`, error.message);
+    return [];
+  }
+};
+
+/*---------------------------------------------------------------------------NEXT RACE */
+
+export const nextRace = async () => {
+  // console.log(`nextRace fetching`);
+  try {
+    const response = await fetch(`${BASE_URL}/2026/next.json`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    // console.log(`nextRace: data in`, data);
     const rawRaces = data.MRData.RaceTable.Races;
     const races = rawRaces.map((r) => ({
       round: r.round,
@@ -90,29 +124,8 @@ export const getRaces = async () => {
           locality: r.Circuit.Location.locality,
         },
       },
-      FirstPractice: {
-        date: r.FirstPractice?.date ?? r.date,
-      },
     }));
-    return races;
-  } catch (error) {
-    console.log(`getRaces error:`, error.message);
-    return [];
-  }
-};
 
-/*---------------------------------------------------------------------------NEXT RACE */
-
-export const nextRace = async () => {
-  console.log(`nextRace fetching`);
-  try {
-    const response = await fetch(`${BASE_URL}/2026/next.json`);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(`nextRace: data in`, data);
-    const races = data.MRData.RaceTable.Races;
     return races && races.length > 0 ? races[0] : null;
   } catch (error) {
     console.log(`nextRace error:`, error.message);
@@ -134,7 +147,7 @@ export const getConstructors = async () => {
       name: c.name,
       nationality: c.nationality,
     }));
-    return constructors;
+    return constructors.sort((a, b) => a.name.localeCompare(b.name));
   } catch (error) {
     console.log(`getConstructors error`, error.message);
     return [];

@@ -22,6 +22,8 @@ const DreamTeamPage = () => {
   const { teams, createTeam, updateTeam, deleteTeam } = useDreamTeam();
 
   const [activeTeamId, setActiveTeamId] = useState(null);
+  const activeTeam = teams.find((t) => t.id === activeTeamId);
+  const previewSource = activeTeam ? activeTeam.fields : formData;
 
   const handleSelectTeam = (teamId) => {
     setActiveTeamId((prev) => (prev === teamId ? null : teamId));
@@ -45,7 +47,7 @@ const DreamTeamPage = () => {
 
   const handleEditTeam = (team) => {
     setEditingTeamId(team.id);
-    setActiveTeamId(team.id); // also highlight it in the logs
+    setActiveTeamId(team.id);
     setFormData({
       primaryDriverId: team.fields.primaryDriverId ?? "",
       secondaryDriverId: team.fields.secondaryDriverId ?? "",
@@ -66,7 +68,7 @@ const DreamTeamPage = () => {
       !formData.constructorId ||
       !formData.circuitId
     ) {
-      alert("Please select all four picks before saving.");
+      alert("Please select all four before saving.");
       return;
     }
 
@@ -80,16 +82,16 @@ const DreamTeamPage = () => {
   };
 
   const selectedPrimary = drivers.find(
-    (d) => d.driverId === formData.primaryDriverId,
+    (d) => d.driverId === previewSource.primaryDriverId,
   );
   const selectedSecondary = drivers.find(
-    (d) => d.driverId === formData.secondaryDriverId,
+    (d) => d.driverId === previewSource.secondaryDriverId,
   );
   const selectedConstructor = constructors.find(
-    (c) => c.constructorId === formData.constructorId,
+    (c) => c.constructorId === previewSource.constructorId,
   );
   const selectedCircuit = races.find(
-    (r) => r.Circuit.circuitId === formData.circuitId,
+    (r) => r.Circuit.circuitId === previewSource.circuitId,
   );
 
   return (
@@ -118,13 +120,15 @@ const DreamTeamPage = () => {
         <h3 className="text-xs font-bold tracking-widest text-red-600 uppercase">
           Your Dream Team
         </h3>
-        <div className="grid auto-cols-max grid-flow-col gap-4">
-          <DreamTeamPreview
-            primaryDriver={selectedPrimary}
-            secondaryDriver={selectedSecondary}
-            constructor={selectedConstructor}
-            circuit={selectedCircuit}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="col-span-full">
+            <DreamTeamPreview
+              primaryDriver={selectedPrimary}
+              secondaryDriver={selectedSecondary}
+              constructor={selectedConstructor}
+              circuit={selectedCircuit}
+            />
+          </div>
         </div>
       </section>
     </main>

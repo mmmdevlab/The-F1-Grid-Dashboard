@@ -12,8 +12,8 @@ const NextRacePanel = () => {
         setNextRaceData(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("Error fetching next race:", err);
+      .catch((error) => {
+        console.error("Error fetching next race:", error);
         setLoading(false);
       });
   }, []);

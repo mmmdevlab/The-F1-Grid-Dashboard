@@ -6,7 +6,7 @@ import DreamTeamPage from "./pages/DreamTeamPage.jsx";
 import RacesPage from "./pages/RacesPage.jsx";
 
 const App = () => {
-  console.log("App rendered");
+  // console.log("App rendered");
   return (
     <>
       <NavBar />

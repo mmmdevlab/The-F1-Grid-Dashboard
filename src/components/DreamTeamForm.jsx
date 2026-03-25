@@ -9,7 +9,7 @@ const DreamTeamForm = ({
   races,
 }) => {
   return (
-    <section className="bg-white rounded-2xl p-6 flex flex-col gap-5 rounded-xl p-6 border border-gray-200">
+    <section className="bg-white rounded-2xl p-6 flex flex-col gap-5 border border-gray-200">
       <h2 className="text-xs font-bold tracking-widest text-red-600 uppercase">
         Pick Your Dream Team
       </h2>
@@ -66,7 +66,7 @@ const DreamTeamForm = ({
           onChange={handleChange}
         >
           <option value="">Select Team</option>
-          {constructors.map((c) => (
+          {constructors?.map((c) => (
             <option key={c.constructorId} value={c.constructorId}>
               {c.name}
             </option>
@@ -86,7 +86,7 @@ const DreamTeamForm = ({
           onChange={handleChange}
         >
           <option value="">Select Race Track</option>
-          {races.map((r) => (
+          {races?.map((r) => (
             <option key={r.Circuit.circuitId} value={r.Circuit.circuitId}>
               {r.raceName} — {r.Circuit.Location.country}
             </option>
