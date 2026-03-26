@@ -20,7 +20,7 @@
 
 # The F1 Grid Dashboard
 
-**Live App:** _(Add deployed link here)_
+**Live App:** [The F1 Grid](https://the-f1-grid.netlify.app/)
 
 > A full React CRUD application giving fans an all-in-one view of the 2026 Formula 1 season.
 
@@ -220,3 +220,5 @@ App
 - **OpenF1 API Integration:** Deeper telemetry — car details, laps, sessions, and live timing.
 
 ---
+
+[Links to all the References](Planning/References.md)
