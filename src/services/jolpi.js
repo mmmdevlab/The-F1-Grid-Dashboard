@@ -32,9 +32,7 @@ export const getDrivers = async () => {
 export const getDriverStandings = async () => {
   // console.log(`getDriverStandings fetch`);
   try {
-    const response = await fetch(
-      `${BASE_URL}/2026/driverStandings.json?limit=10`,
-    );
+    const response = await fetch(`${BASE_URL}/2026/driverStandings.json`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }

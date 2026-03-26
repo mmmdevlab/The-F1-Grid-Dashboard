@@ -18,7 +18,7 @@ const DriverCard = ({
         <span>{driver.permanentNumber}</span>
       </div>
 
-      <div className="p-2">
+      <div className="p-2 wrap-normal md:wrap-break-word">
         <h2 className="text-4xl">{driver.givenName}</h2>
         <h2 className="text-4xl font-bold leading-tight">
           {driver.familyName}

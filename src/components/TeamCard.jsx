@@ -9,6 +9,7 @@ const TeamCard = ({
 }) => {
   const CardColour =
     TEAM_COLOURS[constructor.constructorId] ?? TEAM_COLOURS.default;
+
   return (
     <div className={`rounded-xl p-4 ${CardColour} text-white`}>
       {" "}

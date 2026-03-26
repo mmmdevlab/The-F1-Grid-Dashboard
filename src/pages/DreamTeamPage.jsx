@@ -13,17 +13,22 @@ const initialFormData = {
 };
 
 const DreamTeamPage = () => {
+  const [formData, setFormData] = useState(initialFormData);
   const [drivers, setDrivers] = useState([]);
   const [constructors, setConstructors] = useState([]);
-  const [races, setRaces] = useState([]);
-  const [formData, setFormData] = useState(initialFormData);
-  const [editingTeamId, setEditingTeamId] = useState(null);
-
   const { teams, createTeam, updateTeam, deleteTeam } = useDreamTeam();
+  const [races, setRaces] = useState([]);
 
   const [activeTeamId, setActiveTeamId] = useState(null);
   const activeTeam = teams.find((t) => t.id === activeTeamId);
-  const previewSource = activeTeam ? activeTeam.fields : formData;
+  const [editingTeamId, setEditingTeamId] = useState(null);
+  const [saved, setSaved] = useState(false);
+
+  const previewSource = editingTeamId
+    ? formData
+    : activeTeam
+      ? activeTeam.fields
+      : formData;
 
   const handleSelectTeam = (teamId) => {
     setActiveTeamId((prev) => (prev === teamId ? null : teamId));
@@ -79,6 +84,8 @@ const DreamTeamPage = () => {
       createTeam(formData);
     }
     setFormData(initialFormData);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   const selectedPrimary = drivers.find(
@@ -120,6 +127,11 @@ const DreamTeamPage = () => {
         <h3 className="text-xs font-bold tracking-widest text-red-600 uppercase">
           Your Dream Team
         </h3>
+        {saved && (
+          <h1 className="text-black text-4xl font-bold">
+            Your team has been logged!
+          </h1>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <div className="col-span-full">
             <DreamTeamPreview
@@ -127,6 +139,7 @@ const DreamTeamPage = () => {
               secondaryDriver={selectedSecondary}
               constructor={selectedConstructor}
               circuit={selectedCircuit}
+              isSaved={saved}
             />
           </div>
         </div>
@@ -136,5 +149,3 @@ const DreamTeamPage = () => {
 };
 
 export default DreamTeamPage;
-
-/**lassName="md:col-span-2 bg-gray-900 rounded-3xl p-8 flex flex-col gap-6 shadow-2xl border border-white/5" */

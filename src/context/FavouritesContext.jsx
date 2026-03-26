@@ -15,22 +15,24 @@ export const FavouritesProvider = ({ children }) => {
     Promise.all([getFavouriteDrivers(), getDrivers()]).then(
       ([records, allDrivers]) => {
         if (!records || !allDrivers) return;
-        const loaded = records.map((record) => {
-          const fullDriver = allDrivers.find(
-            (d) => d.driverId === record.fields.driverId,
-          );
-          return { ...fullDriver, recordId: record.id };
-        });
+        const loaded = records
+          .map((record) => {
+            const fullDriver = allDrivers.find(
+              (d) => d.driverId === record.fields.driverId,
+            );
+            if (!fullDriver) return null;
+            return { ...fullDriver, recordId: record.id };
+          })
+          .filter(Boolean);
         setFavourites(loaded);
       },
     );
   }, []);
 
-  const addFavourite = (driver) => {
-    addFavouriteDriver(driver).then((record) => {
-      if (!record) return;
-      setFavourites((prev) => [...prev, { ...driver, recordId: record.id }]);
-    });
+  const addFavourite = async (driver) => {
+    const record = await addFavouriteDriver(driver);
+    if (!record) return;
+    setFavourites((prev) => [...prev, { ...driver, recordId: record.id }]);
   };
 
   const removeFavourite = async (driverId) => {

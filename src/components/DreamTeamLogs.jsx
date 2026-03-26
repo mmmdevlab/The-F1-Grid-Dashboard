@@ -5,8 +5,6 @@ const DreamTeamLogs = ({
   onEdit,
   onDelete,
 }) => {
-  // console.log("DreamTeamLogs: teams received", teams);
-
   return (
     <section className="bg-white rounded-2xl p-6 flex flex-col gap-4 border border-gray-200">
       <h3 className="text-xs font-bold tracking-widest text-red-600 uppercase">

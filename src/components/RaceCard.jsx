@@ -22,8 +22,8 @@ const RaceCard = ({
   const trackMapPath = `./media/track-maps/${circuitId}.svg`;
 
   return (
-    <div className="bg-gray-800 rounded-xl p-4 text-white flex flex-col gap-4">
-      <div className="p-2 flex justify-between text-md font-semibold tracking-widest gap-4">
+    <div className="bg-gray-800 rounded-xl p-4 text-white flex flex-col gap-4 grid-flow-row">
+      <div className="p-2 flex justify-between text-md font-semibold tracking-widest gap-4 wrap-anywhere">
         <span className="py-1 uppercase tracking-widest gap-4">
           {race.Circuit?.Location?.country}
         </span>
@@ -32,11 +32,11 @@ const RaceCard = ({
         </span>
       </div>
 
-      <div className="relative h-60 overflow-hidden rounded-xl bg-gray-900 flex items-center justify-center">
+      <div className="overflow-hidden w-auto relative h-60 rounded-xl bg-gray-900 flex items-center justify-center">
         <img
           src={trackMapPath}
           alt={`${race.circuitName}track map`}
-          className="md:block-full hover:scale-105 transition-transform duration-200 invert"
+          className="block-full hover:scale-105 transition-transform duration-200 invert"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "/media/track-maps/default.svg";
@@ -45,7 +45,7 @@ const RaceCard = ({
         <div />
       </div>
 
-      <div className=" px-2 flex flex-col gap-2">
+      <div className="px-2 flex flex-col gap-2">
         <h2 className="uppercase font-bold leading-tight text-red-500">
           {formatRaceWeekend(race.FirstPractice?.date, race.date)}
         </h2>

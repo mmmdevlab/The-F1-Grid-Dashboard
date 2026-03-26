@@ -8,6 +8,14 @@ const DreamTeamForm = ({
   constructors,
   races,
 }) => {
+  const availableForSecondary = drivers.filter(
+    (d) => d.driverId !== formData.primaryDriverId,
+  );
+
+  const availableForPrimary = drivers.filter(
+    (d) => d.driverId !== formData.secondaryDriverId,
+  );
+
   return (
     <section className="bg-white rounded-2xl p-6 flex flex-col gap-5 border border-gray-200">
       <h2 className="text-xs font-bold tracking-widest text-red-600 uppercase">
@@ -26,7 +34,7 @@ const DreamTeamForm = ({
           onChange={handleChange}
         >
           <option value="">Select Driver</option>
-          {drivers.map((d) => (
+          {availableForPrimary.map((d) => (
             <option key={d.driverId} value={d.driverId}>
               {d.givenName} {d.familyName}
             </option>
@@ -46,7 +54,7 @@ const DreamTeamForm = ({
           onChange={handleChange}
         >
           <option value="">Select Driver</option>
-          {drivers.map((d) => (
+          {availableForSecondary.map((d) => (
             <option key={d.driverId} value={d.driverId}>
               {d.givenName} {d.familyName}
             </option>

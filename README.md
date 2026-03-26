@@ -41,14 +41,18 @@ The project followed a structured, product-driven workflow to ensure clarity in 
   [Read ideation Doc](./Planning/UserStories.md)
 
 - **MVP Definition**  
-  Scoped features to balance technical requirements with a complete user experience:
+  Scoped features includes:
   - Standings overview
+    - Up coming Race
+    - Top 5 Driver Standings
+    - Race Watchlist at a glance
+    - Favourite Driver at a glance
   - Driver directory
-    - Driver Cards
-    - Favourite Driver Section
+    - Favourite Driver Section (CRUD)
+    - All Driver Cards
   - Race calendar
-    - Race Cards for each location (Race Schedule)
-    - Watchlist (CRUD)
+    - Race Watchlist (CRUD)
+    - Race Cards for each location (Schedule)
   - Dream Team builder (CRUD)
 
 - **User Stories**  
@@ -70,6 +74,7 @@ src/
 ├── context/    # useContext passing data
 ├── pages/      # Route-level views (Home, Drivers, DreamTeam, Races)
 ├── services/   # API abstraction (airtable.js, jolpi.js, weather.js)
+├── data/       # Allocation of Color codes for each Driver and Team.
 ├── App.jsx     # Routing and global state
 └── main.jsx    # Entry point
 ```
@@ -166,21 +171,19 @@ The application follows a **single-responsibility component architecture**, wher
 App
 ├── NavBar
 ├── HomePage (Overview)
-│   ├── HeroSection
-│   │   └── [countdown timer + weather data]
-│   ├── WatchlistPanel
-│   │   └── WatchlistRaceCard
+│   ├── Next Race [Details + countdown timer + weather data]
 │   ├── StandingsList
+│   ├── WatchlistPanel
 │   └── FavouriteDriverCard
 ├── DriversPage
 │   ├── FavouriteDriversSection
-│   │   └── DriverCard [remove mode]
+│   │   └── DriverCard
 │   └── AllDriversSection
-│       └── DriverCard [add mode]
+│       └── DriverCard [add/remove mode]
 ├── DreamTeamPage
 │   ├── DreamTeamForm (Left-top)
 │   ├── DreamTeamLogs (Left-bottom)
-│   │   └── [log entry + delete]
+│   │   └── [log entry + edit/delete]
 │   └── DreamTeamPreview (Right)
 │       ├── DriverCard [primary + secondary]
 │       ├── TeamCard
@@ -206,6 +209,8 @@ App
 
 ## Future Roadmap
 
+- **DreamTeam `PUT` setup** Continue Setup (CRUD) for DreamTeam and Build it with more features.
+- **Button Component** Setup Button to different actions.
 - **Teams Page:** Detailed view of all constructors and their history.
 - **F1 Legends:** Explore Hall of Fame historical driver profiles.
 - **Driver Search & Filter:** Find any driver by name or team instantly.

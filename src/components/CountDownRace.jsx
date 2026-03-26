@@ -38,7 +38,7 @@ const CountDownRace = ({ raceDate }) => {
   return (
     <div className="countdown flex col gap-4 flex-wrap grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
       <h1 className="bg-black px-2 py-1 rounded-lg tracking-widest">
-        {timeLeft.days}d{" "}
+        {timeLeft.days}d
       </h1>
       <h1 className="bg-black px-2 py-1 rounded-lg tracking-widest">
         {timeLeft.hours}h

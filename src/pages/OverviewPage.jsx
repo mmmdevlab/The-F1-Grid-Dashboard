@@ -31,16 +31,16 @@ const OverviewPage = () => {
         </h1>
       </div>
 
-      <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-col-4 gap-4 mb-4">
-        <div className="lg:col-span-1">
+      <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4 grid-flow-row">
+        <div className="lg:col-span-1 grid-flow-row">
           <NextRacePanel />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 justify-between">
           <StandingList standings={standings} />
         </div>
       </section>
 
-      <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4 grid-flow-row">
         <div>
           <WatchlistPanel />
         </div>

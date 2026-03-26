@@ -5,28 +5,25 @@ import {
   editDreamTeam,
   removeDreamTeam,
 } from "../services/airtable";
+import { getDriverStandings } from "../services/jolpi";
 
 const DreamTeamContext = createContext();
-export const useDreamTeam = () => useContext(DreamTeamContext);
 
 export const DreamTeamProvider = ({ children }) => {
   const [teams, setTeams] = useState([]);
-
-  const loadTeams = async () => {
-    const records = await getDreamTeam();
-    if (records) setTeams(records);
-  };
+  const [standings, setStandings] = useState([]);
 
   useEffect(() => {
-    // loadTeams();
+    getDreamTeam().then((records) => {
+      if (records) setTeams(records);
+    });
+    getDriverStandings().then(setStandings);
   }, []);
 
   const createTeam = async (formData) => {
     const newRecord = await createDreamTeam(formData);
-    if (newRecord && newRecord.id) {
+    if (newRecord?.id) {
       setTeams((prev) => [newRecord, ...prev]);
-    } else {
-      alert("Race Control: Data format error. Check console.");
     }
   };
 
@@ -44,11 +41,11 @@ export const DreamTeamProvider = ({ children }) => {
 
   return (
     <DreamTeamContext.Provider
-      value={{ teams, createTeam, updateTeam, deleteTeam }}
+      value={{ teams, createTeam, updateTeam, deleteTeam, standings }}
     >
       {children}
     </DreamTeamContext.Provider>
   );
 };
 
-export default DreamTeamProvider;
+export const useDreamTeam = () => useContext(DreamTeamContext);

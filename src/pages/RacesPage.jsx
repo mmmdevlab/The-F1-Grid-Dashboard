@@ -11,7 +11,7 @@ const RacesPage = () => {
   useEffect(() => {
     getRaces().then((data) => {
       setRaces(data);
-      console.log(`RacesPage: races`, data);
+      // console.log(`RacesPage: races`, data);
     });
   }, []);
 

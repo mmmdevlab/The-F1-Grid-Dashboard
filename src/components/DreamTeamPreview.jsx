@@ -1,19 +1,35 @@
 import DriverCard from "./DriverCard";
 import TeamCard from "./TeamCard";
 import RaceCard from "./RaceCard";
+import { useDreamTeam } from "../context/DreamTeamContext";
 
 const DreamTeamPreview = ({
   primaryDriver,
   secondaryDriver,
   constructor,
   circuit,
+  isSaved,
 }) => {
+  const { standings = [] } = useDreamTeam();
+
+  const getStanding = (driverId) =>
+    standings.find((s) => s.Driver.driverId === driverId);
+
+  const primaryStanding = primaryDriver
+    ? getStanding(primaryDriver.driverId)
+    : null;
+  const secondaryStanding = secondaryDriver
+    ? getStanding(secondaryDriver.driverId)
+    : null;
+
   const hasAnySelection =
     primaryDriver || secondaryDriver || constructor || circuit;
 
-  if (!hasAnySelection) {
+  if (!hasAnySelection && !isSaved) {
     return (
-      <p className="text-black text-sm">Select your picks from the form.</p>
+      <h1 className="text-black text-xl animate-fade-in duration-500">
+        Select your picks from the form.
+      </h1>
     );
   }
   return (
@@ -22,12 +38,14 @@ const DreamTeamPreview = ({
         {primaryDriver ? (
           <DriverCard
             driver={primaryDriver}
-            points="—"
-            position="—"
+            points={primaryStanding?.points ?? "—"}
+            position={primaryStanding?.position ?? "—"}
             hideActions={true}
           />
         ) : (
-          <p className="text-gray-500 text-sm">No primary driver selected</p>
+          !isSaved && (
+            <p className="text-gray-500 text-sm">No primary driver selected</p>
+          )
         )}
       </div>
 
@@ -35,12 +53,16 @@ const DreamTeamPreview = ({
         {secondaryDriver ? (
           <DriverCard
             driver={secondaryDriver}
-            points="—"
-            position="—"
+            points={secondaryStanding?.points ?? "—"}
+            position={secondaryStanding?.position ?? "—"}
             hideActions={true}
           />
         ) : (
-          <p className="text-gray-500 text-sm">No secondary driver selected</p>
+          !isSaved && (
+            <p className="text-gray-500 text-sm">
+              No secondary driver selected
+            </p>
+          )
         )}
       </div>
 
@@ -48,7 +70,7 @@ const DreamTeamPreview = ({
         {constructor ? (
           <TeamCard constructor={constructor} hideActions={true} />
         ) : (
-          <p className="text-gray-500 text-sm">No team selected</p>
+          !isSaved && <p className="text-gray-500 text-sm">No team selected</p>
         )}
       </div>
 
@@ -56,7 +78,7 @@ const DreamTeamPreview = ({
         {circuit ? (
           <RaceCard race={circuit} hideActions={true} />
         ) : (
-          <p className="text-gray-500 text-sm">No track selected</p>
+          !isSaved && <p className="text-gray-500 text-sm">No track selected</p>
         )}
       </div>
     </div>

@@ -15,11 +15,9 @@ const DriversPage = () => {
     });
     getDrivers().then((data) => {
       setDrivers(data);
-      // console.log("DriversPage: drivers set", data);
     });
     getDriverStandings().then((data) => {
       setStandings(data);
-      // console.log("DriversPage: standings set", data);
     });
   }, []);
 
@@ -58,7 +56,6 @@ const DriversPage = () => {
                     points={standing?.points ?? "—"}
                     position={standing?.position ?? "—"}
                     isFavourite={true}
-                    hideActions={true}
                     onRemoveFavourite={() => removeFavourite(driver.driverId)}
                   />
                 );

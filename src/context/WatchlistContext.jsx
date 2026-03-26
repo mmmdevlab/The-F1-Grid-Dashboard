@@ -16,9 +16,8 @@ export const WatchlistProvider = ({ children }) => {
     Promise.all([getWatchlist(), getRaces()]).then(([records, allRaces]) => {
       if (!records || !allRaces) return;
 
-      // Debug: confirm what you're working with
-      console.log("Airtable watchlist records:", records);
-      console.log("Sample race from Jolpi:", allRaces[0]);
+      // console.log("Airtable watchlist records:", records);
+      // console.log("Sample race from Jolpi:", allRaces[0]);
 
       const loaded = records
         .map((record) => {

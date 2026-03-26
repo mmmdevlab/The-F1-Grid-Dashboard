@@ -1,31 +1,26 @@
 const StandingList = ({ standings }) => {
-  // console.log(`StandingList`);
-
   return (
-    <div className="rounded-xl p-6 border border-gray-200">
-      <p className="text-xs font-semibold text-red-600 tracking-widest mb-4">
+    <div className="overflow-auto rounded-xl p-6 border border-gray-200">
+      <p className="text-xs font-semibold text-red-600 tracking-widest mb-4 uppercase">
         TOP 5 DRIVER STANDINGS
       </p>
-      {standings?.map((standing) => (
+      {standings?.slice(0, 5).map((standing) => (
         <div
           key={standing.Driver.driverId}
-          className="grid items-center gap-2 py-2.5 border-b border-gray-100 last:border-0"
-          style={{ gridTemplateColumns: "280px 1fr 1px 45px" }}
+          className="grid grid-cols-[28px_minmax(0,1.4fr)_minmax(0,1fr)_56px] items-center gap-4 py-4 border-b border-gray-100 last:border-0"
         >
-          <div className="flex items-center gap-4 p-2">
-            <span className="text-red-500 font-semibold text-sm w-4">
-              {standing.position}
-            </span>
-            <span className="font-semibold text-xl">
-              {standing.Driver.givenName} {standing.Driver.familyName}
-            </span>
+          <div className="text-red-500 font-semibold text-sm">
+            {standing.position}
           </div>
-          <span className="text-gray-400 text-sm">
+          <div className="font-semibold text-xl truncate">
+            {standing.Driver.givenName} {standing.Driver.familyName}
+          </div>
+          <div className="text-gray-400 truncate">
             {standing.Constructor.name}
-          </span>
-          <span className="font-bold text-base text-right">
+          </div>
+          <div className="justify-self-end w-14 text-left font-bold text-base">
             {standing.points}
-          </span>
+          </div>
         </div>
       ))}
     </div>

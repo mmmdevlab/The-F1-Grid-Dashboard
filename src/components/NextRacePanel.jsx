@@ -48,7 +48,7 @@ const NextRacePanel = () => {
             </p>
           </div>
         ) : (
-          <p className="text-white opacity-50 italic">
+          <p className="text-white text-2xl ">
             {loading
               ? "Loading track data..."
               : "No upcoming race data available"}

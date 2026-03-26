@@ -3,7 +3,6 @@ import RaceCard from "./RaceCard";
 
 const WatchlistPanel = () => {
   const { watchlist, removeFromWatchlist } = useWatchlist();
-  // console.log("WatchlistPanel rendered, watchlist:", watchlist);
 
   return (
     <section className="rounded-xl p-6 border border-gray-200">
