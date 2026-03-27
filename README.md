@@ -158,9 +158,9 @@ The application follows a **single-responsibility component architecture**, wher
 | **WatchlistPanel**   | Overview, Races     | Shows user's saved watchlist races with flag and date. Supports remove (×).                                                               |
 | **StandingList**     | Overview            | Reusable ranked list for Top 10 Driver Standings.                                                                                         |
 | **DriverCard**       | Drivers, Dream Team | Core driver unit — team colour background, code, number, photo, points, position. Accepts an action button (Add to Favourites / Remove).  |
-| **DreamTeamForm**    | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                                 |
+| **DreamTeamForm**    | Dream Team          | Controlled form with dropdowns for Primary Driver, Secondary Driver, Favourite Team, and Favourite Track.                              |
 | **DreamTeamLogs**    | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
-| **DreamTeamPreview** | Dream Team          | Displays a log of saved Dream Team entries with a delete (×) action.                                                                      |
+| **DreamTeamPreview** | Dream Team          | Displays driverCards, teamCard and raceCard selected and being saved as entries .                                                         |
 | **TeamCard**         | Dream Team          | Displays chosen constructor — team logo, car image, and team colour accent.                                                               |
 | **RaceCard**         | Dream Team, Races   | Displays circuit map silhouette, country name, circuit name, date, and Add to Watchlist button. Past races show "View Standings" instead. |
 | **WatchlistPanel**   | Races               | Expanded watchlist entry — flag, name, date, live countdown, and remove (×).                                                              |
@@ -187,7 +187,7 @@ App
 │   └── DreamTeamPreview (Right)
 │       ├── DriverCard [primary + secondary]
 │       ├── TeamCard
-│       └── TrackCard
+│       └── RaceCard (track)
 └── RacesPage
     ├── WatchlistSection
     │   └── WatchlistRaceCard [remove mode]
