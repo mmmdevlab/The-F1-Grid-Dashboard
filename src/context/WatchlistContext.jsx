@@ -1,4 +1,3 @@
-// WatchlistContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 import { getRaces } from "../services/jolpi.js";
 import {
@@ -16,8 +15,7 @@ export const WatchlistProvider = ({ children }) => {
     Promise.all([getWatchlist(), getRaces()]).then(([records, allRaces]) => {
       if (!records || !allRaces) return;
 
-      // console.log("Airtable watchlist records:", records);
-      // console.log("Sample race from Jolpi:", allRaces[0]);
+      const today = new Date();
 
       const loaded = records
         .map((record) => {
@@ -35,7 +33,12 @@ export const WatchlistProvider = ({ children }) => {
         })
         .filter(Boolean);
 
-      setWatchlist(loaded);
+      const pastRaces = loaded.filter((r) => new Date(r.date) < today);
+      const upcomingRaces = loaded.filter((r) => new Date(r.date) >= today);
+
+      pastRaces.forEach((r) => removeWatchlistFromAirtable(r.recordId));
+
+      setWatchlist(upcomingRaces);
     });
   }, []);
 

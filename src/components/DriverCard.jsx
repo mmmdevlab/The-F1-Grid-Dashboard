@@ -18,7 +18,7 @@ const DriverCard = ({
         <span>{driver.permanentNumber}</span>
       </div>
 
-      <div className="p-2 wrap-normal md:wrap-break-word">
+      <div className="px-2 pt-2 wrap-normal md:wrap-break-word">
         <h2 className="text-4xl">{driver.givenName}</h2>
         <h2 className="text-4xl font-bold leading-tight">
           {driver.familyName}
@@ -28,7 +28,7 @@ const DriverCard = ({
           <img
             src={`/media/driver-img/${driver.driverId}.png`}
             alt={`${driver.familyName}`}
-            className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-200"
+            className="block w-full h-full object-cover object-top hover:scale-105 transition-transform duration-200"
           />
         </div>
       </div>

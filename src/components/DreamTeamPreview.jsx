@@ -76,7 +76,7 @@ const DreamTeamPreview = ({
 
       <div>
         {circuit ? (
-          <RaceCard race={circuit} hideActions={true} />
+          <RaceCard race={circuit} hideActions={true} ignorePast={true} />
         ) : (
           !isSaved && <p className="text-gray-500 text-sm">No track selected</p>
         )}

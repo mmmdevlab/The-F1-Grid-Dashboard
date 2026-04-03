@@ -18,6 +18,15 @@ const NextRacePanel = () => {
       });
   }, []);
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const day = date.getDate();
+    const month = date
+      .toLocaleString("default", { month: "short" })
+      .toUpperCase();
+    return `${day} ${month}`;
+  };
+
   const raceDateTimeString =
     nextRaceData?.date && nextRaceData?.time
       ? `${nextRaceData.date}T${nextRaceData.time}`
@@ -34,10 +43,10 @@ const NextRacePanel = () => {
           <div>
             <div className="mt-2 flex gap-4 text-md font-mono text-white">
               <span className="bg-red-500 px-2 py-1 rounded">
-                {nextRaceData.date}
+                {formatDate(nextRaceData.date)}
               </span>
               <span className="bg-red-500 px-2 py-1 rounded">
-                {nextRaceData.time?.replace("Z", " UTC")}
+                {nextRaceData.time?.slice(0, 5)} UTC
               </span>
             </div>
             <h1 className="text-white text-5xl pt-3 font-bold">
