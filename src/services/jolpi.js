@@ -11,8 +11,15 @@ export const getDrivers = async () => {
     }
     const data = await response.json();
     const rawDrivers = data.MRData.DriverTable.Drivers;
+    // filter out reserve/stand-in drivers that don't have a permanentNumber
+    const filteredRawDrivers = rawDrivers.filter(
+      (d) =>
+        d.permanentNumber !== undefined &&
+        d.permanentNumber !== null &&
+        d.permanentNumber !== "",
+    );
     // console.log(`getDrivers: data got`, data);
-    const drivers = rawDrivers.map((d) => ({
+    const drivers = filteredRawDrivers.map((d) => ({
       driverId: d.driverId,
       givenName: d.givenName,
       familyName: d.familyName,
